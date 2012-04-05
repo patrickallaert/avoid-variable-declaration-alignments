@@ -1,3 +1,4 @@
 <?php
 
-$foo = "bar";
+$foo   = "bar";
+$myFoo = "myBar";
