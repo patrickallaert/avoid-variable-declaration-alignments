@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Avoid-variable-declaration-alignments : " />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Avoid-variable-declaration-alignments</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/patrickallaert/avoid-variable-declaration-alignments">Fork Me on GitHub</a>
+
+          <h1 id="project_title">Avoid-variable-declaration-alignments</h1>
+          <h2 id="project_tagline"></h2>
+
+          <section id="downloads">
+            <a class="zip_download_link" href="https://github.com/patrickallaert/avoid-variable-declaration-alignments/zipball/master">Download this project as a .zip file</a>
+            <a class="tar_download_link" href="https://github.com/patrickallaert/avoid-variable-declaration-alignments/tarball/master">Download this project as a tar.gz file</a>
+          </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>Do NOT align variables declaration</h1>
+
+<p>This project is an attempt to demonstrate why variable declaration alignments is, in general, a bad thing while coding:</p>
+
+<p>example.php:</p>
+
+<pre><code>    &lt;?php
+
+    $bar     = "baz";
+    $foo     = "bar";
+    $myFoo   = "myBar";
+    $myStuff = "foo";
+</code></pre>
+
+<p>When code like this is modified over the time, lines needs some rearrangments.</p>
+
+<ul>
+<li>The first reason to avoid this alignment is that automatic search/replace refactoring becomes harder if not impossible, e.g. by changing the variable <em>$myStuff</em> to <em>$myPersonalStuff</em>, that wouldn't correct the alignment of the first three variables.:</li>
+</ul><pre><code>    $ sed -i "s/myStuff/myPersonalStuff/g" example.php
+</code></pre>
+
+<p>This can be seen as a minimal annoyance but things becomes much more annoying with the time: e.g.: when you need to take the advantage of the <em>blame</em> feature of your VCS:</p>
+
+<ul>
+<li>As an exercise: in which commit has been introduced the <em>$bar</em> variable in: <a href="https://github.com/patrickallaert/avoid-variable-declaration-alignments/blob/master/example.php">https://github.com/patrickallaert/avoid-variable-declaration-alignments/blob/master/example.php</a> ?<br>
+To discover this, the steps using the web frontend are the following:
+
+<ol>
+<li>Begin to <strong>Blame</strong> the file: <a href="https://github.com/patrickallaert/avoid-variable-declaration-alignments/blame/master/example.php">https://github.com/patrickallaert/avoid-variable-declaration-alignments/blame/master/example.php</a></li>
+<li>See that it looks like introduced in ff5d20b: <a href="https://github.com/patrickallaert/avoid-variable-declaration-alignments/commit/ff5d20b53bfb330fab6741fdb100a5657ed50b8d">https://github.com/patrickallaert/avoid-variable-declaration-alignments/commit/ff5d20b53bfb330fab6741fdb100a5657ed50b8d</a></li>
+<li>Following the link, one can see that it existed before, view the file as it existed @ff5d20b: <a href="https://github.com/patrickallaert/avoid-variable-declaration-alignments/blob/ff5d20b53bfb330fab6741fdb100a5657ed50b8d/example.php">https://github.com/patrickallaert/avoid-variable-declaration-alignments/blob/ff5d20b53bfb330fab6741fdb100a5657ed50b8d/example.php</a></li>
+<li>Then go to the <strong>History</strong> of that file: <a href="https://github.com/patrickallaert/avoid-variable-declaration-alignments/commits/master/example.php">https://github.com/patrickallaert/avoid-variable-declaration-alignments/commits/master/example.php</a></li>
+<li>Pick the commit that came before the ff5d20b one: <a href="https://github.com/patrickallaert/avoid-variable-declaration-alignments/commit/2f96a59c3b2a97e0e82b6bfe6933b2c6d3a760dd#example.php">https://github.com/patrickallaert/avoid-variable-declaration-alignments/commit/2f96a59c3b2a97e0e82b6bfe6933b2c6d3a760dd#example.php</a></li>
+<li>View the file in that version: <a href="https://github.com/patrickallaert/avoid-variable-declaration-alignments/blob/2f96a59c3b2a97e0e82b6bfe6933b2c6d3a760dd/example.php">https://github.com/patrickallaert/avoid-variable-declaration-alignments/blob/2f96a59c3b2a97e0e82b6bfe6933b2c6d3a760dd/example.php</a></li>
+<li>To finally redo a <strong>Blame</strong> on this specific version: <a href="https://github.com/patrickallaert/avoid-variable-declaration-alignments/blame/2f96a59c3b2a97e0e82b6bfe6933b2c6d3a760dd/example.php">https://github.com/patrickallaert/avoid-variable-declaration-alignments/blame/2f96a59c3b2a97e0e82b6bfe6933b2c6d3a760dd/example.php</a></li>
+<li>There you see that it looks like introduced in 3ae2a3b9: <a href="https://github.com/patrickallaert/avoid-variable-declaration-alignments/commit/3ae2a3b979cc8c7562e856fb6283ba1069d457ab">https://github.com/patrickallaert/avoid-variable-declaration-alignments/commit/3ae2a3b979cc8c7562e856fb6283ba1069d457ab</a></li>
+<li>Again, one can discover that this is not the commit that introduced it, repeat all the steps from 3. to 8.</li>
+<li>Finally, you will discover it has been introduced in: <a href="https://github.com/patrickallaert/avoid-variable-declaration-alignments/commit/071932d847146e0b9b400e3e9f08a4fcc7d6b320#example.php">https://github.com/patrickallaert/avoid-variable-declaration-alignments/commit/071932d847146e0b9b400e3e9f08a4fcc7d6b320#example.php</a></li>
+</ol>
+</li>
+</ul><p>Hopefully, this is a bit easier using the git command line client:</p>
+
+<pre><code>    $ git checkout git://github.com/patrickallaert/avoid-variable-declaration-alignments.git
+    $ cd avoid-variable-declaration-alignments
+    $ git blame example.php
+    $ git show ff5d20b5
+    $ git blame example.php ff5d20b5~
+    $ git show 3ae2a3b9
+    $ git blame example.php 3ae2a3b9~
+    $ git show 071932d
+</code></pre>
+
+<p>But still! Far <strong>way</strong> too much operations IMHO for a usual task.</p>
+
+<ul>
+<li>Last but not least, by increasing the number of lines changed in every commits, chance is high to increase the number of possible conflicts. For the same reason it will also make backporting (cherry-picking) of fixes on those lines in your version branches much more difficult since likely to conflict.</li>
+</ul><p>If you are already convinced by the necessity of using atomic commits in revision control tools, time has come to also forget that kind of alignment aesthetics as it would prevent you from achieving all the goals of atomic commits. See more info on: <a href="http://en.wikipedia.org/wiki/Atomic_commit#Atomic_Commit_Convention">http://en.wikipedia.org/wiki/Atomic_commit#Atomic_Commit_Convention</a></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Avoid-variable-declaration-alignments maintained by <a href="https://github.com/patrickallaert">patrickallaert</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
